@@ -1,7 +1,7 @@
 /* ==========================================================================
    Portfolio v3 · behaviour. Content comes from content.js.
    ========================================================================== */
-import { links, postcard, stops, work, steps, tools, sites, places } from './content.js';
+import { careerStart, links, postcard, stops, work, steps, tools, sites, places } from './content.js';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -9,6 +9,16 @@ const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const wait = (ms) => new Promise((r) => setTimeout(r, reduce ? 0 : ms));
+
+/* Years of experience: computed from careerStart, rounded down to the half year ("2.5+"). */
+{
+  const yrs = Math.floor(((Date.now() - new Date(careerStart)) / 31557600000) * 2) / 2;
+  if (yrs > 0) {
+    $$('[data-years]').forEach((el) => { el.textContent = `${yrs}+`; });
+    const meta = $('meta[name="description"]');
+    if (meta) meta.content = meta.content.replace(/[\d.]+\+ years/, `${yrs}+ years`);
+  }
+}
 
 /* ---------- 1. Hero: pins on the trail + the journey sheet ---------- */
 const heroArt = $('.hero-art');
@@ -136,7 +146,7 @@ $('#stub-back').addEventListener('click', () => {
 const phones = () => `<div class="phones" aria-hidden="true">${[0, 1].map(() => '<div class="phone"><i class="hero-blk"></i><i class="ln"></i><i class="ln s"></i><i class="cta"></i></div>').join('')}</div>`;
 const browserMock = () => `<div class="web-mock" aria-hidden="true"><span class="web-bar"><i></i><i></i><i></i></span><span class="web-h"></span><span class="web-l"></span><span class="web-l s"></span><span class="web-cta"></span><span class="web-chart"><i></i><i></i><i></i><i></i></span></div>`;
 $('#cards').innerHTML = work.map((w, i) => `
-  <article class="work-row reveal" style="--d:${i * 60}ms" aria-label="${esc(w.label)}">
+  <article class="work-row reveal" id="work-${esc(w.id)}" style="--d:${i * 60}ms" aria-label="${esc(w.label)}">
     <a class="postcard pc-front tint-${esc(w.tint)}" href="${esc(w.link.href)}" tabindex="-1" aria-hidden="true">
       <span class="pc-art">
         <span class="t-eyebrow">${esc(w.label)}</span>
@@ -159,10 +169,22 @@ $('#cards').innerHTML = work.map((w, i) => `
       <div class="addr" aria-hidden="true">
         <span class="pc-stamp">${esc(w.stamp)}</span>
         <span class="postmark">Shipped<br>${esc(w.year)}</span>
-        <div class="addr-lines"><span>To: whoever’s hiring</span><span>From: Deeva</span><span>India · ${esc(w.year)}</span></div>
+        <div class="addr-lines"><span>To: whoever’s hiring</span><span>From: Siddharth</span><span>India · ${esc(w.year)}</span></div>
       </div>
     </div>
   </article>`).join('');
+
+// Deep links like index.html#work-horocosmo: the cards are rendered above, so scroll once they exist.
+if (location.hash.startsWith('#work-')) {
+  const target = document.getElementById(location.hash.slice(1));
+  // Images and fonts change the layout as they load, so jump again once they have.
+  const jump = () => target.scrollIntoView({ behavior: 'instant', block: 'center' });
+  if (target) {
+    jump();
+    window.addEventListener('load', jump, { once: true });
+    document.fonts?.ready.then(jump);
+  }
+}
 
 // Mockup videos play only while on screen, and never for people who prefer less motion.
 {
@@ -187,12 +209,12 @@ const ART = {
   signal: () => `
     <div class="art-signal">
       <ul class="sources">
-        <li><span class="src src-funnel" aria-hidden="true"><i style="--h:100%"></i><i style="--h:74%"></i><i style="--h:40%"></i><i style="--h:31%"></i></span><span class="t-eyebrow muted">Funnels</span></li>
-        <li><span class="src src-heat" aria-hidden="true"></span><span class="t-eyebrow muted">Heatmaps</span></li>
-        <li><span class="src src-call" aria-hidden="true"><i></i><i></i><i></i></span><span class="t-eyebrow muted">User calls</span></li>
+        <li><span class="src src-funnel" aria-hidden="true"><i style="--h:100%"></i><i style="--h:74%"></i><i style="--h:40%"></i><i style="--h:31%"></i></span><span class="t-eyebrow muted">Load tests</span></li>
+        <li><span class="src src-heat" aria-hidden="true"></span><span class="t-eyebrow muted">Slow queries</span></li>
+        <li><span class="src src-call" aria-hidden="true"><i></i><i></i><i></i></span><span class="t-eyebrow muted">Logs</span></li>
       </ul>
       <span class="art-arrow" aria-hidden="true">→</span>
-      <div class="signal-card"><p class="t-eyebrow accent">1–2 signals</p><p class="t-display-m">Where people stop, and why.</p></div>
+      <div class="signal-card"><p class="t-eyebrow accent">1–2 signals</p><p class="t-display-m">Where the system slows, and why.</p></div>
     </div>`,
   note: () => `
     <div class="art-note">
@@ -201,21 +223,21 @@ const ART = {
     </div>`,
   phones: () => `
     <div class="art-phones">
-      <figure><div class="mini-phone before">${'<i></i>'.repeat(7)}</div><figcaption class="t-eyebrow">Before · many choices</figcaption></figure>
+      <figure><div class="mini-phone before">${'<i></i>'.repeat(7)}</div><figcaption class="t-eyebrow">Before · many queries</figcaption></figure>
       <span class="art-arrow" aria-hidden="true">→</span>
       <figure><div class="mini-phone after">${'<i></i>'.repeat(3)}</div><figcaption class="t-eyebrow accent">After · one clear decision</figcaption></figure>
     </div>`,
   copy: () => `
     <div class="art-copy">
-      <p class="t-eyebrow muted">Before</p><p class="was">“Prove you’re human”</p>
-      <p class="t-eyebrow accent">After</p><p class="now">“Get seen by trusted profiles”</p>
-      <p class="t-hand">same ask, from the person’s side</p>
+      <p class="t-eyebrow muted">Before</p><p class="was">“500 · something went wrong”</p>
+      <p class="t-eyebrow accent">After</p><p class="now">“403 · verify to start chatting”</p>
+      <p class="t-hand">same error, from the client’s side</p>
     </div>`,
   ledger: () => `
     <ul class="art-ledger">
       <li><span class="t-metric accent">100K+</span><span><b>Horocosmo</b><span class="t-body-s muted">downloads in the first month</span></span></li>
-      <li><span class="t-metric accent">+25%</span><span><b>Wishup</b><span class="t-body-s muted">pageviews, with 15% less bounce</span></span></li>
-      <li><span class="t-metric accent">23→38%</span><span><b>Astroverse 2.0</b><span class="t-body-s muted">of Discover decisions are likes</span></span></li>
+      <li><span class="t-metric accent">85%</span><span><b>MakeUGC</b><span class="t-body-s muted">less manual video production time</span></span></li>
+      <li><span class="t-metric accent">5X</span><span><b>Astroverse 2.0</b><span class="t-body-s muted">traffic spikes absorbed by auto-scaling</span></span></li>
     </ul>`,
 };
 const stepsEl = $('#steps'), panel = $('#step-panel'), dotsEl = $('#step-dots');
@@ -274,21 +296,31 @@ journey.addEventListener('pointerenter', () => clearInterval(autoTimer));
 journey.addEventListener('focusin', stopAuto);
 $('#toolbox').innerHTML = tools.map((t, i) => `<li style="--r:${[-2, 1.5, -1, 2, -1.5, 1][i % 6]}deg">${esc(t)}</li>`).join('');
 
-/* ---------- 5. Websites: the souvenir shelf ---------- */
+/* ---------- 5. Services: the souvenir shelf ---------- */
 const shelf = $('#shelf');
 shelf.innerHTML = sites.map((s) => `
   <li class="shelf-item tint-${esc(s.tint)}${s.href ? ' has-link' : ''}">
     ${s.href ? `<a class="shelf-link" href="${esc(s.href)}" aria-label="${esc(s.name)}: ${esc(s.cta || 'Read the case study')}">` : ''}
     <figure>
-      <div class="browser">
+      <div class="flip"><div class="flip-inner">
+      <div class="browser"${s.brief ? ` role="button" tabindex="0" aria-expanded="false" aria-label="${esc(s.name)}: flip the card for a short brief"` : ''}>
         <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="browser-view">
           ${s.image ? `<img src="${esc(encodeURI(s.image))}" alt="${esc(s.name)}: ${esc(s.kind)}" loading="lazy">`
                     : `<div class="ph" aria-hidden="true"><b>${esc(s.name)}</b><i></i><i></i><u></u></div>`}
           ${s.video ? `<video hidden muted loop playsinline preload="none" poster="${esc(encodeURI(s.image || ''))}" aria-label="${esc(s.name)}: scrolling through the home page"><source src="${esc(encodeURI(s.video))}" type="video/${s.video.endsWith('.mp4') ? 'mp4' : 'webm'}"></video>
           <span class="play-badge" aria-hidden="true" hidden><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 1l7 4-7 4z" fill="currentColor"/></svg><span class="pb-txt"></span></span>` : ''}
+          ${s.brief ? '<span class="flip-badge" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg>Tap to flip</span>' : ''}
         </div>
       </div>
+      ${s.brief ? `<div class="flip-back" aria-hidden="true">
+        <p class="t-eyebrow">The brief</p>
+        <p class="flip-brief">${esc(s.brief)}</p>
+        ${s.role ? `<p class="t-eyebrow flip-role-h">My role</p><p class="flip-brief">${esc(s.role)}</p>` : ''}
+        ${s.stack ? `<p class="flip-stack">${esc(s.stack)}</p>` : ''}
+        <span class="flip-hint">Tap to flip back</span>
+      </div>` : ''}
+      </div></div>
       <figcaption>
         <span class="t-eyebrow">${esc(s.who)}</span>
         <h3>${esc(s.name)}</h3>
@@ -305,7 +337,7 @@ if (looping) {
   $$('.shelf-item', shelf).forEach((li) => {
     const c = li.cloneNode(true);
     c.classList.add('is-clone'); c.setAttribute('aria-hidden', 'true');
-    $$('a', c).forEach((a) => { a.tabIndex = -1; });
+    $$('a, .browser', c).forEach((a) => { a.tabIndex = -1; });
     shelf.append(c);
   });
 }
@@ -317,18 +349,16 @@ $$('#shelf .browser').forEach((b) => {
   const touch = matchMedia('(hover: none)').matches;
   $('.pb-txt', badge).textContent = touch || reduce ? 'Tap to play' : 'Hover to play';
   const HOVER_SPEED = 2; /* playback speed of the hover recordings; 1 is normal */
-  const play = () => { b.classList.add('is-hot'); v.preload = 'auto'; v.defaultPlaybackRate = HOVER_SPEED; v.playbackRate = HOVER_SPEED; v.play().then(() => b.classList.add('is-playing')).catch(() => {}); };
+  const play = () => { if (b.closest('.is-flipped')) return; b.classList.add('is-hot'); v.preload = 'auto'; v.defaultPlaybackRate = HOVER_SPEED; v.playbackRate = HOVER_SPEED; v.play().then(() => { if (b.closest('.is-flipped')) { v.pause(); v.currentTime = 0; } else b.classList.add('is-playing'); }).catch(() => {}); };
   const stop = () => { v.pause(); v.currentTime = 0; b.classList.remove('is-playing', 'is-hot'); };
   fetch(v.currentSrc || $('source', v).src, { method: 'HEAD' }).then((r) => {
     if (!r.ok) throw new Error('missing');
     v.hidden = false; badge.hidden = false;
-    b.tabIndex = b.closest('.is-clone') ? -1 : 0; b.setAttribute('role', 'button'); b.setAttribute('aria-label', `Play the ${v.getAttribute('aria-label')}`);
+    
     if (!touch && !reduce) {
       b.addEventListener('pointerenter', play); b.addEventListener('pointerleave', stop);
       b.addEventListener('focus', play); b.addEventListener('blur', stop);
     }
-    b.addEventListener('click', () => (v.paused ? play() : stop()));
-    b.addEventListener('keydown', (e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); v.paused ? play() : stop(); } });
   }).catch(() => {});
 });
 const shelfBtns = $$('[data-shelf]');
@@ -348,6 +378,27 @@ shelfBtns.forEach((b) => b.addEventListener('click', () => {
 shelf.addEventListener('scroll', shelfState, { passive: true });
 addEventListener('resize', shelfState);
 shelfState();
+// Flip a card: tap the card to turn the recording over to a short brief; tap again to turn it back. Hovering still plays the recording.
+const flip = (item, on) => {
+  item.classList.toggle('is-flipped', on);
+  $('.browser', item)?.setAttribute('aria-expanded', String(on));
+  $('.flip-back', item)?.setAttribute('aria-hidden', String(!on));
+  if (on) { pausedUntil = performance.now() + 6000; const v = $('video', item); if (v) { v.pause(); v.currentTime = 0; } $('.browser', item)?.classList.remove('is-playing', 'is-hot'); }
+};
+shelf.addEventListener('click', (e) => {
+  const item = e.target.closest('.shelf-item');
+  if (!item) return;
+  if (e.target.closest('.flip-back')) flip(item, false);
+  else if (e.target.closest('.browser[role="button"]')) flip(item, true);
+});
+shelf.addEventListener('keydown', (e) => {
+  if (e.key !== ' ' && e.key !== 'Enter') return;
+  const b = e.target.closest('.browser[role="button"]');
+  if (!b) return;
+  e.preventDefault();
+  const item = b.closest('.shelf-item');
+  flip(item, !item.classList.contains('is-flipped'));
+});
 // Auto-scroll: drifts left to right, stops while the pointer is over the shelf, a card has focus or is playing, or someone is swiping.
 if (looping) {
   shelf.style.scrollSnapType = 'none';

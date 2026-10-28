@@ -4,10 +4,13 @@
    Leave a photo as "" and the site shows its designed placeholder instead.
    ========================================================================== */
 
+/* First day in the industry (ScaleX internship). The "years" figures on the page count up from this date, in half-year steps. */
+export const careerStart = "2024-03-01";
+
 export const links = {
-  email: "dee.vag78@gmail.com",
-  linkedin: "",                  // paste your LinkedIn URL: a LinkedIn stamp appears in the footer
-  resume: "assets/Deeva Gupta Resume.pdf", // your résumé PDF: shows a Résumé pill in the nav and a stamp in the footer
+  email: "siddharth.shekharr@gmail.com",
+  linkedin: "https://linkedin.com/in/siddharttth",                  // paste your LinkedIn URL: a LinkedIn stamp appears in the footer
+  resume: "assets/Siddharth Shekhar Resume.pdf", // your résumé PDF: shows a Résumé pill in the nav and a stamp in the footer
   caseStudy: "astroverse.html",
 };
 
@@ -30,40 +33,40 @@ export const postcard = {
    summit: the team I join next. */
 export const stops = [
   {
-    id: "btech", x: 0.856, y: 0.772,
-    pin: "B.Tech · 2018",
-    when: "2018",
-    title: "B.Tech, Computer Science",
-    role: "Dr. A.P.J. Abdul Kalam Technical University",
-    body: "Where I learned how software works, and where I noticed I cared more about the person using it. That curiosity is what moved me into design.",
-    note: "engineer by degree",
+    id: "diploma", x: 0.856, y: 0.772,
+    pin: "Diploma · 2019",
+    when: "2019 – 2022",
+    title: "Diploma, Mechanical Engineering",
+    role: "Dayalbagh Educational Institute, Agra",
+    body: "Where I learned how machines work, and where I noticed I cared more about the logic running behind them. That curiosity is what moved me into software.",
+    note: "engineer by training",
   },
   {
-    id: "hucentric", x: 0.619, y: 0.646,
-    pin: "Hucentric · 2022",
-    when: "Mar 2022 – Dec 2023",
-    title: "Hucentric",
-    role: "UI/UX Designer · design agency",
-    body: "Wishup’s lead-gen site (+25% pageviews), Vegapay’s brand and website, and Webflow builds for Sketchnote, Dexter Ventures and Elevare.",
+    id: "btech", x: 0.619, y: 0.646,
+    pin: "B.Tech · 2022",
+    when: "2022 – 2025",
+    title: "B.Tech, Computer Science",
+    role: "Pranveer Singh Institute of Technology, Kanpur",
+    body: "Where I learned data structures, databases and distributed systems, and started building backends in Go and Python.",
     note: "",
   },
   {
-    id: "freelance", x: 0.828, y: 0.515,
-    pin: "Freelance · 2024",
-    when: "Jan – Apr 2024",
-    title: "Freelance",
-    role: "Contract UX Designer · Cravin’ Foods",
-    body: "Designed a restaurant management and analytics dashboard, plus the customer-side food ordering app.",
+    id: "internship", x: 0.828, y: 0.515,
+    pin: "Internship · 2024",
+    when: "Mar 2024 – Mar 2025",
+    title: "Internship",
+    role: "Software Development Engineer Intern · ScaleX",
+    body: "Built RESTful APIs for a real-time cricket stock trading platform with 5,000+ users, and cut critical latency issues by 65% under 100K+ concurrent users.",
     note: "",
   },
   {
     id: "scalex", x: 0.724, y: 0.322,
-    pin: "ScaleX · 2024",
-    when: "Jun 2024 – now",
+    pin: "ScaleX · 2025",
+    when: "Mar 2025 – now",
     title: "ScaleX",
-    role: "Founding Product Designer",
-    body: "Client launches like Horocosmo (100K+ downloads in month one), Arvind Sud’s report pages and BeerBiceps SkillHouse, alongside our own product.",
-    note: "first designer in the room",
+    role: "Software Development Engineer",
+    body: "Backends for client launches like Horocosmo and ClickNumero, alongside our own product, Astroverse.",
+    note: "owned it end to end",
   },
   {
     id: "next", x: 0.85, y: 0.141,
@@ -71,9 +74,9 @@ export const stops = [
     when: "Next",
     title: "Your team",
     role: "The next summit",
-    body: "I'm looking for a team building a consumer product people return to, where design sits next to product and data from day one.",
+    body: "I'm looking for a team building a consumer product people return to, where backend sits next to product and data from day one.",
     note: "",
-    link: { label: "Say hello", href: "mailto:dee.vag78@gmail.com" },
+    link: { label: "Say hello", href: "mailto:siddharth.shekharr@gmail.com" },
   },
 ];
 
@@ -92,10 +95,10 @@ export const work = [
     stamp: "AV",
     year: "2026",
     title: "Fewer profiles, better matches",
-    problem: "A swipe clone with a compatibility score nobody could read.",
-    role: "Founding designer: research, IA, UI, UX writing, analytics.",
-    metric: "23→38%",
-    metricLabel: "of Discover decisions are likes",
+    problem: "A swipe clone with a compatibility score that had to hold up at scale.",
+    role: "Founding engineer: Database, Backend Development, Auth & JWTs, Algo, Cloud, Pipelines.",
+    metric: "5X",
+    metricLabel: "traffic spikes absorbed by AWS auto-scaling",
     link: { label: "Read the case study", href: "astroverse.html" },
   },
   {
@@ -108,27 +111,11 @@ export const work = [
     stamp: "HC",
     year: "2024",
     title: "A celebrity astrologer’s app, from blank canvas to launch",
-    problem: "Astro Arun Pandit needed his own app, built from scratch.",
-    role: "Set the entire UI base: design system, core flows, launch screens.",
+    problem: "Astro Arun Pandit needed his own app, and it had to survive live events.",
+    role: "Developed features and algo, optimized latency, caching, monitoring.",
     metric: "100K+",
     metricLabel: "downloads in the first month",
     link: { label: "Ask me about it", href: "#hello" },
-  },
-  {
-    id: "wishup",
-    label: "Wishup · App",
-    tint: "sage",
-    kind: "app",
-    image: "",
-    video: "assets/video/wishup",
-    stamp: "WU",
-    year: "2023",
-    title: "One app for clients, VAs and Wishup",
-    problem: "Client–VA work lived in Slack threads, email and hand-written EOD reports.",
-    role: "Product designer on the client app, working with our design manager.",
-    metric: "~15%",
-    metricLabel: "VA time saved on EOD reports",
-    link: { label: "Read the case study", href: "wishup.html" },
   },
 ];
 
@@ -137,47 +124,48 @@ export const work = [
    art: signal | note | phones | copy | ledger (how the window draws it). */
 export const steps = [
   {
-    title: "Find the signal", hat: "Researcher", tools: ["Mixpanel", "Clarity", "User calls"], art: "signal",
-    did: "I start with what people actually do: funnels, heatmaps and a handful of user calls. I'm looking for the one or two signals worth acting on, not a long list of findings.",
-    proof: "Wishup: Clarity heatmaps and stakeholder interviews set the brief for the redesign.",
+    title: "Find the signal", hat: "Profiler", tools: ["CloudWatch", "Load tests", "Logs"], art: "signal",
+    did: "I start with what the system actually does: latency graphs, slow queries and a handful of load tests. I'm looking for the one or two signals worth acting on, not a long list of findings.",
+    proof: "Horocosmo: CloudWatch metrics set the target, 500ms down to 200ms.",
   },
   {
-    title: "Name the insight", hat: "Product strategist", tools: ["North-star doc", "Team crit"], art: "note",
+    title: "Name the insight", hat: "Systems architect", tools: ["Design doc", "Team review"], art: "note",
     did: "I turn the signal into one sentence the whole team can repeat. Every decision after that gets checked against it.",
-    proof: "Astroverse 2.0: “Fewer profiles, better matches” steered a full rebuild.",
+    proof: "Astroverse 2.0: “Fewer profiles, better matches” steered the matching rewrite.",
   },
   {
-    title: "Design the smallest move", hat: "UX & UI designer", tools: ["Figma", "Design systems"], art: "phones",
-    did: "I look for the smallest change that fixes the problem, then build it on a system the next ten screens can reuse.",
-    proof: "Horocosmo: I set the whole UI base, from the design system to the launch screens.",
+    title: "Design the smallest move", hat: "Backend engineer", tools: ["Go", "PostgreSQL", "Redis"], art: "phones",
+    did: "I look for the smallest change that fixes the problem, then build it on a schema the next ten services can reuse.",
+    proof: "ClickNumero & Horocosmo: a Redis layer cut database load by 55%.",
   },
   {
-    title: "Write the words", hat: "UX writer", tools: ["Figma", "Copy deck"], art: "copy",
-    did: "I write the interface copy myself, from the user's side of the screen. The right ask at the right moment does more than another screen.",
-    proof: "Astroverse 2.0: verification became an invitation, asked after 3 likes instead of at sign-up.",
+    title: "Write the contract", hat: "API designer", tools: ["REST", "gRPC", "JWT"], art: "copy",
+    did: "I write the API contracts myself, from the client's side of the call. The right response at the right moment does more than another endpoint.",
+    proof: "Astroverse 2.0: JWT auth and the matching APIs answer in under 200ms.",
   },
   {
-    title: "Ship and measure", hat: "Analyst · PM", tools: ["Jira", "Mixpanel"], art: "ledger",
-    did: "I write the tickets with clear acceptance criteria, stay close to the build, then read the numbers to see whether it worked.",
-    proof: "Three products, three kinds of result: an app launch, a SaaS website and a rebuild.",
+    title: "Ship and measure", hat: "DevOps · Backend", tools: ["GitHub Actions", "CloudWatch"], art: "ledger",
+    did: "I write the pipelines with clear checks, stay close to the deploy, then read the dashboards to see whether it worked.",
+    proof: "Three products, three kinds of result: a latency cut, a scale-out and a deploy that went from 4 hours to 15 minutes.",
   },
 ];
 
 /* The toolbox row under How I work. */
-export const tools = ["Figma", "Mixpanel", "Jira", "Clarity", "Webflow", "Claude"];
+export const tools = ["Go", "Python", "PostgreSQL", "Redis", "AWS", "Claude"];
 
-/* Websites & brands: the souvenir shelf. image: "" shows a drawn placeholder.
+/* Services & platforms: the souvenir shelf. image: "" shows a drawn placeholder.
    video (optional): path to a recording in assets/video (.webm or .mp4); it plays on hover, and image is the still shown first.
+   brief (what it is, in plain words) + role (what I did) + stack: shown on the back of the card, which flips when the name is clicked.
    href (optional) turns the card into a link to a short case study; stats and cta show on that card. */
 export const sites = [
-  { name: "Astroverse", kind: "Landing page", who: "Buildd", image: "assets/img/site-astroverse.webp", video: "assets/video/Astroverse LP.webm", tint: "blush" },
-  { name: "Astrologer Arvind Sud", kind: "Report landing pages", who: "ScaleX client", image: "assets/img/site-arvind.webp", video: "assets/video/Arvind Sud Report LP.webm", tint: "slate" },
-  { name: "BeerBiceps SkillHouse", kind: "Program landing page", who: "ScaleX client", image: "assets/video/Design for Clicks.png", video: "assets/video/Design for clicks by Skillhouse Beerbicep.webm", tint: "wheat" },
-  { name: "Vegapay", kind: "Brand identity & website", who: "Hucentric", image: "assets/video/VegaPay.png", video: "assets/video/Vegapay LP.webm", tint: "sage" },
+  { name: "Astroverse", kind: "Backend APIs", who: "Buildd", image: "assets/img/site-astroverse.webp", video: "assets/video/Astroverse LP.webm", tint: "blush", brief: "A dating app that matches people using their Kundli (birth chart), with fewer but better matches.", role: "Founding engineer: database, login & security, matching algorithm, cloud, deployment pipelines.", stack: "PostgreSQL · JWT · AWS" },
+  { name: "Arvind Sud (ClickNumero)", kind: "Report APIs & analytics", who: "ScaleX client", image: "assets/img/site-arvind.webp", video: "assets/video/Arvind Sud Report LP.webm", tint: "slate", brief: "A website where followers of a well-known astrologer order personalised numerology reports.", role: "Go APIs, database speed-ups, caching, third-party analytics integrations.", stack: "Go · Redis · AWS" },
   /* Hidden for now, bring back by removing the comment markers. The short case study page (wishup-website.html) is still in the repo.
   { name: "Wishup", kind: "Lead-gen website", who: "Hucentric", image: "", tint: "blush", stats: "+25% pageviews · −15% bounce · 10% lead conversion", href: "wishup-website.html", cta: "Read the short case study" },
   */
-  { name: "Sketchnote · Dexter Ventures · Elevare", kind: "Webflow sites", who: "Hucentric", image: "", video: "assets/video/Sketchnote LP.webm", tint: "slate" },
+  { name: "MoneyFlow", kind: "Personal finance ledger", who: "Personal project", image: "assets/img/site-moneyflow.jpg", video: "assets/video/MoneyFlow LP.webm", tint: "wheat", brief: "A personal expense tracker that shows what you spent on, and who you spent it with.", role: "Solo build: database, login, APIs and the app itself.", stack: "Next.js · Postgres · Drizzle · JWT" },
+  { name: "MedicoHub", kind: "Student community platform", who: "Personal project", image: "assets/img/site-medicohub.jpg", video: "assets/video/MedicoHub LP.webm", tint: "slate", brief: "A study community where MBBS students share notes, prepare for exams and help each other.", role: "Solo build: backend APIs, login, notes, exams, notifications, AI features, landing page.", stack: "Node · Express · MongoDB · Redis · Socket.IO" },
+  { name: "MakeUGC", kind: "AI video engine", who: "Buildd", image: "assets/img/site-makeugc.jpg", video: "assets/video/MakeUGC LP.webm", tint: "sage", brief: "Turns a product link into a ready-to-post video ad using AI, in minutes.", role: "Built end to end: AI pipeline, cloud servers, storage, deployment.", stack: "Claude · ElevenLabs · ComfyUI · AWS" },
 ];
 
 /* Off the clock: fridge door magnets.
