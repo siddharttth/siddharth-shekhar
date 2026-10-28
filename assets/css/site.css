@@ -496,6 +496,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .flip-stack { font: 500 12px/18px var(--f-mono); letter-spacing: .04em; color: rgba(245, 239, 227, .66); }
 .flip-hint { margin-top: auto; font: 500 12px/16px var(--f-ui); color: rgba(245, 239, 227, .5); }
 @media (prefers-reduced-motion: reduce) { .flip-inner { transition: none; } }
+/* Phones: the card is smaller, so the back gets tighter type and drops the hint to stay inside it. */
+@media (max-width: 640px) {
+  .flip-back { gap: 4px; padding: 14px 16px; overflow: auto; }
+  .flip-back .t-eyebrow { font-size: 10px; line-height: 14px; }
+  .flip-brief { font-size: 13px; line-height: 18px; }
+  .flip-role-h { margin-top: 2px; }
+  .flip-stack { font-size: 10.5px; line-height: 15px; }
+  .flip-hint { display: none; }
+}
+@media (max-width: 340px) { .flip-stack { display: none; } }
 .browser-view video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; background: var(--tint, var(--tint-slate)); }
 .browser[role="button"] { cursor: pointer; }
 .browser[role="button"]:focus-visible { outline: 2px solid var(--ink-900); outline-offset: 4px; }
