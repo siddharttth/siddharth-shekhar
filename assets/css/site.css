@@ -306,9 +306,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .packed { border-left: 2px dashed var(--hairline); border-top: 0; border-radius: 0 0 18px 18px; }
   .pass-band { padding: 16px 20px; }
   .pass-band-r { display: none; }
-  .pass-route { grid-template-columns: 1fr 1fr; padding: 22px 20px 16px; }
+  .pass-route { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: var(--s4); align-items: start; padding: 22px 20px 16px; }
+  .pass-route > div { min-width: 0; align-content: start; }
   .pass-route .pass-arc { display: none; }
-  .pass-city { font-size: 36px; line-height: 40px; }
+  .pass-city { font-size: clamp(30px, 8.6vw, 36px); line-height: 40px; }
   .pass-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 20px; }
   .pass-notes { padding: 4px 20px 24px; }
   .pass-stamp { display: none; }
